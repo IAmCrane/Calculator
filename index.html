@@ -82,9 +82,14 @@
     button.equal {
       background-color: #f43f5e;
       color: #ffffff;
+    }
+
+    /* Make clear button take up two columns to complete row 1 */
+    button.clear {
       grid-column: span 2;
     }
 
+    /* Make 0 button take up two columns */
     button.zero {
       grid-column: span 2;
     }
@@ -95,7 +100,67 @@
   <div class="calculator">
     <input type="text" class="display" id="display" readonly value="0">
     <div class="buttons">
+      <!-- Row 1 -->
       <button class="clear" onclick="clearDisplay()">C</button>
       <button class="delete" onclick="deleteChar()">DEL</button>
       <button class="operator" onclick="appendValue('/')">&divide;</button>
-      <button class="operator"
+
+      <!-- Row 2 -->
+      <button onclick="appendValue('7')">7</button>
+      <button onclick="appendValue('8')">8</button>
+      <button onclick="appendValue('9')">9</button>
+      <button class="operator" onclick="appendValue('*')">&times;</button>
+
+      <!-- Row 3 -->
+      <button onclick="appendValue('4')">4</button>
+      <button onclick="appendValue('5')">5</button>
+      <button onclick="appendValue('6')">6</button>
+      <button class="operator" onclick="appendValue('-')">-</button>
+
+      <!-- Row 4 -->
+      <button onclick="appendValue('1')">1</button>
+      <button onclick="appendValue('2')">2</button>
+      <button onclick="appendValue('3')">3</button>
+      <button class="operator" onclick="appendValue('+')">+</button>
+
+      <!-- Row 5 -->
+      <button class="zero" onclick="appendValue('0')">0</button>
+      <button onclick="appendValue('.')">.</button>
+      <button class="equal" onclick="calculate()">=</button>
+    </div>
+  </div>
+
+  <script>
+    const display = document.getElementById('display');
+
+    function appendValue(val) {
+      if (display.value === '0' && val !== '.') {
+        display.value = val;
+      } else {
+        display.value += val;
+      }
+    }
+
+    function clearDisplay() {
+      display.value = '0';
+    }
+
+    function deleteChar() {
+      if (display.value.length === 1 || display.value === 'Error') {
+        display.value = '0';
+      } else {
+        display.value = display.value.slice(0, -1);
+      }
+    }
+
+    function calculate() {
+      try {
+        display.value = eval(display.value);
+      } catch (e) {
+        display.value = 'Error';
+      }
+    }
+  </script>
+
+</body>
+</html>
