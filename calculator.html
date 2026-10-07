@@ -26,6 +26,7 @@
       border-radius: 20px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       width: 320px;
+      text-align: center;
     }
 
     .display {
@@ -84,14 +85,25 @@
       color: #ffffff;
     }
 
-    /* Make clear button take up two columns to complete row 1 */
     button.clear {
       grid-column: span 2;
     }
 
-    /* Make 0 button take up two columns */
     button.zero {
       grid-column: span 2;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      color: #f472b6;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
@@ -128,6 +140,8 @@
       <button onclick="appendValue('.')">.</button>
       <button class="equal" onclick="calculate()">=</button>
     </div>
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
   </div>
 
   <script>
