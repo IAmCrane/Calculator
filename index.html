@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Welcome to the Calculator App</title>
+  <title>Calculator Hub</title>
   <style>
     * {
       box-sizing: border-box;
@@ -33,7 +33,7 @@
     h1 {
       color: #fce7f3;
       font-size: 2rem;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     p {
@@ -42,9 +42,15 @@
       margin-bottom: 28px;
     }
 
+    .button-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
     .btn {
-      display: inline-block;
-      padding: 14px 28px;
+      display: block;
+      padding: 14px 20px;
       font-size: 1.1rem;
       font-weight: 600;
       color: #3b0764;
@@ -65,14 +71,27 @@
     .btn:active {
       transform: translateY(0);
     }
+
+    .btn-secondary {
+      background-color: #a855f7;
+      color: #ffffff;
+    }
+
+    .btn-secondary:hover {
+      background-color: #c084fc;
+    }
   </style>
 </head>
 <body>
 
   <div class="card">
-    <h1>Calculator App</h1>
-    <p>Click below to launch the calculator.</p>
-    <a href="calculator.html" class="btn">Open Calculator</a>
+    <h1>Calculator Hub</h1>
+    <p>Choose a calculator to get started:</p>
+    
+    <div class="button-group">
+      <a href="calculator.html" class="btn">Standard Calculator</a>
+      <a href="percentage-of.html" class="btn btn-secondary">Percentage Calculator</a>
+    </div>
   </div>
 
 </body>
