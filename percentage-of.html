@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Percentage Calculator</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fbcfe8, #f472b6, #c084fc);
+    }
+
+    .calculator-card {
+      background-color: #3b0764;
+      padding: 32px 24px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      width: 340px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #fce7f3;
+      margin-bottom: 20px;
+      font-size: 1.5rem;
+    }
+
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #fce7f3;
+      font-weight: 600;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      height: 48px;
+      background-color: #581c87;
+      border: 2px solid #a855f7;
+      border-radius: 10px;
+      color: #fce7f3;
+      font-size: 1.1rem;
+      padding: 0 12px;
+      outline: none;
+      text-align: center;
+    }
+
+    input[type="number"]:focus {
+      border-color: #f472b6;
+    }
+
+    .btn {
+      width: 100%;
+      height: 48px;
+      background-color: #f472b6;
+      color: #3b0764;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-bottom: 16px;
+    }
+
+    .btn:hover {
+      background-color: #e879f9;
+      transform: translateY(-2px);
+    }
+
+    .result-box {
+      background-color: #581c87;
+      padding: 14px;
+      border-radius: 10px;
+      color: #fce7f3;
+      font-size: 1.25rem;
+      font-weight: 600;
+      min-height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .back-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: #f472b6;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .back-link:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="calculator-card">
+    <h2>Percentage Finder</h2>
+
+    <div class="input-group">
+      <div class="row">
+        <input type="number" id="percent" placeholder="e.g. 20" step="any">
+        <span>%</span>
+      </div>
+      <div class="row">
+        <span>of</span>
+        <input type="number" id="num" placeholder="e.g. 150" step="any">
+      </div>
+    </div>
+
+    <button class="btn" onclick="calculatePercentage()">Calculate</button>
+
+    <div class="result-box" id="result">Result: --</div>
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+  </div>
+
+  <script>
+    function calculatePercentage() {
+      const percent = parseFloat(document.getElementById('percent').value);
+      const num = parseFloat(document.getElementById('num').value);
+      const resultDiv = document.getElementById('result');
+
+      if (isNaN(percent) || isNaN(num)) {
+        resultDiv.textContent = "Please enter valid numbers";
+        return;
+      }
+
+      const calcResult = (percent / 100) * num;
+      // Round to maximum of 4 decimal places for clean formatting
+      const formattedResult = Number(calcResult.toFixed(4));
+      
+      resultDiv.textContent = `${percent}% of ${num} = ${formattedResult}`;
+    }
+  </script>
+
+</body>
+</html>
