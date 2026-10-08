@@ -201,58 +201,41 @@
     document.getElementById('calc-btn').addEventListener('click', function(e) {
       e.preventDefault();
 
-      const initial = parseFloat(document.getElementById('initial').value) || 0;
-      const monthly = parseFloat(document.getElementById('monthly').value) || 0;
-      const annualRate = parseFloat(document.getElementById('rate').value) || 0;
-      const years = parseFloat(document.getElementById('years').value) || 0;
-      const target = parseFloat(document.getElementById('target').value) || 0;
+      var initial = parseFloat(document.getElementById('initial').value) || 0;
+      var monthly = parseFloat(document.getElementById('monthly').value) || 0;
+      var annualRate = parseFloat(document.getElementById('rate').value) || 0;
+      var years = parseFloat(document.getElementById('years').value) || 0;
+      var target = parseFloat(document.getElementById('target').value) || 0;
 
-      const r = (annualRate / 100) / 12;
-      const n = years * 12;
+      var r = (annualRate / 100) / 12;
+      var n = years * 12;
 
-      let futureValue = 0;
-      let totalContributions = initial + (monthly * n);
+      var futureValue = 0;
+      var totalContributions = initial + (monthly * n);
 
       if (n > 0) {
         if (r > 0) {
-          const compoundInitial = initial * Math.pow(1 + r, n);
-          const compoundMonthly = monthly * ((Math.pow(1 + r, n) - 1) / r);
+          var compoundInitial = initial * Math.pow(1 + r, n);
+          var compoundMonthly = monthly * ((Math.pow(1 + r, n) - 1) / r);
           futureValue = compoundInitial + compoundMonthly;
         } else {
           futureValue = totalContributions;
         }
       }
 
-      const totalInterest = futureValue - totalContributions;
+      var totalInterest = futureValue - totalContributions;
 
-      let reqMonthlyText = 'N/A';
+      var reqMonthlyText = 'N/A';
       if (target > 0 && n > 0) {
         if (r > 0) {
-          const futureInitialOnly = initial * Math.pow(1 + r, n);
-          const remainingGoal = target - futureInitialOnly;
+          var futureInitialOnly = initial * Math.pow(1 + r, n);
+          var remainingGoal = target - futureInitialOnly;
 
           if (remainingGoal <= 0) {
             reqMonthlyText = '$0.00 (Goal reached by initial deposit)';
           } else {
-            const reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
+            var reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
             reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
           }
         } else {
-          const remainingGoal = target - initial;
-          if (remainingGoal <= 0) {
-            reqMonthlyText = '$0.00';
-          } else {
-            const reqMonthly = remainingGoal / n;
-            reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
-          }
-        }
-      }
-
-      document.getElementById('principal-val').textContent = '$' + totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('interest-val').textContent = '$' + totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('future-val').textContent = '$' + futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('req-monthly-val').textContent = reqMonthlyText;
-    });
-  </script>
-</body>
-</html>
+          var remainingGoal = target - initial;
