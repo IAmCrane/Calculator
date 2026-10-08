@@ -198,60 +198,65 @@
   </div>
 
   <script>
-    document.getElementById('calc-btn').addEventListener('click', function(e) {
-      e.preventDefault();
+    document.addEventListener('DOMContentLoaded', function() {
+      var calcBtn = document.getElementById('calc-btn');
+      if (!calcBtn) return;
 
-      var initial = parseFloat(document.getElementById('initial').value) || 0;
-      var monthly = parseFloat(document.getElementById('monthly').value) || 0;
-      var annualRate = parseFloat(document.getElementById('rate').value) || 0;
-      var years = parseFloat(document.getElementById('years').value) || 0;
-      var target = parseFloat(document.getElementById('target').value) || 0;
+      calcBtn.addEventListener('click', function(e) {
+        e.preventDefault();
 
-      var r = (annualRate / 100) / 12;
-      var n = years * 12;
+        var initial = parseFloat(document.getElementById('initial').value) || 0;
+        var monthly = parseFloat(document.getElementById('monthly').value) || 0;
+        var annualRate = parseFloat(document.getElementById('rate').value) || 0;
+        var years = parseFloat(document.getElementById('years').value) || 0;
+        var target = parseFloat(document.getElementById('target').value) || 0;
 
-      var futureValue = 0;
-      var totalContributions = initial + (monthly * n);
+        var r = (annualRate / 100) / 12;
+        var n = years * 12;
 
-      if (n > 0) {
-        if (r > 0) {
-          var compoundInitial = initial * Math.pow(1 + r, n);
-          var compoundMonthly = monthly * ((Math.pow(1 + r, n) - 1) / r);
-          futureValue = compoundInitial + compoundMonthly;
-        } else {
-          futureValue = totalContributions;
-        }
-      }
+        var futureValue = 0;
+        var totalContributions = initial + (monthly * n);
 
-      var totalInterest = futureValue - totalContributions;
-
-      var reqMonthlyText = 'N/A';
-      if (target > 0 && n > 0) {
-        if (r > 0) {
-          var futureInitialOnly = initial * Math.pow(1 + r, n);
-          var remainingGoal = target - futureInitialOnly;
-
-          if (remainingGoal <= 0) {
-            reqMonthlyText = '$0.00 (Goal reached by initial deposit)';
+        if (n > 0) {
+          if (r > 0) {
+            var compoundInitial = initial * Math.pow(1 + r, n);
+            var compoundMonthly = monthly * ((Math.pow(1 + r, n) - 1) / r);
+            futureValue = compoundInitial + compoundMonthly;
           } else {
-            var reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
-            reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
-          }
-        } else {
-          var remainingGoal = target - initial;
-          if (remainingGoal <= 0) {
-            reqMonthlyText = '$0.00';
-          } else {
-            var reqMonthly = remainingGoal / n;
-            reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
+            futureValue = totalContributions;
           }
         }
-      }
 
-      document.getElementById('principal-val').textContent = '$' + totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('interest-val').textContent = '$' + totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('future-val').textContent = '$' + futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
-      document.getElementById('req-monthly-val').textContent = reqMonthlyText;
+        var totalInterest = futureValue - totalContributions;
+
+        var reqMonthlyText = 'N/A';
+        if (target > 0 && n > 0) {
+          if (r > 0) {
+            var futureInitialOnly = initial * Math.pow(1 + r, n);
+            var remainingGoal = target - futureInitialOnly;
+
+            if (remainingGoal <= 0) {
+              reqMonthlyText = '$0.00 (Goal reached by initial deposit)';
+            } else {
+              var reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
+              reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
+            }
+          } else {
+            var remainingGoal = target - initial;
+            if (remainingGoal <= 0) {
+              reqMonthlyText = '$0.00';
+            } else {
+              var reqMonthly = remainingGoal / n;
+              reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
+            }
+          }
+        }
+
+        document.getElementById('principal-val').textContent = '$' + totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('interest-val').textContent = '$' + totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('future-val').textContent = '$' + futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+        document.getElementById('req-monthly-val').textContent = reqMonthlyText;
+      });
     });
   </script>
 </body>
