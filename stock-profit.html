@@ -163,4 +163,19 @@
     document.getElementById('calc-btn').addEventListener('click', function(e) {
       e.preventDefault();
 
-      const price = parseFloat(document.getElementById('price').value) ||
+      const price = parseFloat(document.getElementById('price').value) || 0;
+      const units = parseFloat(document.getElementById('units').value) || 0;
+      const increase = parseFloat(document.getElementById('increase').value) || 0;
+
+      const initialInvestment = price * units;
+      const profit = initialInvestment * (increase / 100);
+      const newPrice = price * (1 + increase / 100);
+      const totalValue = initialInvestment + profit;
+
+      document.getElementById('profit-val').textContent = `$${profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('new-price-val').textContent = `New Stock Price: $${newPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('total-val').textContent = `Total Value: $${totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    });
+  </script>
+</body>
+</html>
