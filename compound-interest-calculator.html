@@ -111,4 +111,148 @@
       font-size: 0.95rem;
       margin-bottom: 6px;
     }
-    .result-row:last
+    .result-row:last-child {
+      margin-bottom: 0;
+    }
+    .result-row.total {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #a855f7;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .result-row span.val {
+      color: #4ade80;
+      font-weight: 700;
+    }
+    .result-row.total span.val {
+      color: #f472b6;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: #e9d5ff;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #f472b6;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: #e879f9;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Compound Savings</h1>
+    <p>Calculate wealth growth and required target savings</p>
+
+    <div class="input-group">
+      <div>
+        <label for="initial">Initial Deposit ($)</label>
+        <input type="number" id="initial" step="any" placeholder="e.g. 5000">
+      </div>
+      <div>
+        <label for="monthly">Monthly Contribution ($)</label>
+        <input type="number" id="monthly" step="any" placeholder="e.g. 300">
+      </div>
+      <div>
+        <label for="rate">Estimated Annual Return Rate (%)</label>
+        <input type="number" id="rate" step="any" placeholder="e.g. 7">
+      </div>
+      <div>
+        <label for="years">Time Horizon (Years)</label>
+        <input type="number" id="years" step="any" placeholder="e.g. 10">
+      </div>
+      <div>
+        <label for="target">Target Savings Goal (Optional) ($)</label>
+        <input type="number" id="target" step="any" placeholder="e.g. 100000">
+      </div>
+    </div>
+
+    <button type="button" id="calc-btn" class="btn">Calculate Growth</button>
+
+    <div class="result-box" id="result-box">
+      <div class="result-title">Projections</div>
+      <div class="result-row">Total Principal Invested: <span class="val" id="principal-val">$0.00</span></div>
+      <div class="result-row">Total Interest Earned: <span class="val" id="interest-val">$0.00</span></div>
+      <div class="result-row total">Future Total Value: <span class="val" id="future-val">$0.00</span></div>
+
+      <div class="result-title" style="margin-top: 16px;">Goal Analysis</div>
+      <div class="result-row">Required Monthly Deposit: <span class="val" id="req-monthly-val">N/A</span></div>
+    </div>
+
+    <p class="disclaimer">
+      Disclaimer: This calculator is provided for informational purposes only and should not be considered financial or tax advice. Please consult a qualified accountant or financial advisor for professional guidance.
+    </p>
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
+  </div>
+
+  <script>
+    document.getElementById('calc-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const initial = parseFloat(document.getElementById('initial').value) || 0;
+      const monthly = parseFloat(document.getElementById('monthly').value) || 0;
+      const annualRate = parseFloat(document.getElementById('rate').value) || 0;
+      const years = parseFloat(document.getElementById('years').value) || 0;
+      const target = parseFloat(document.getElementById('target').value) || 0;
+
+      const r = (annualRate / 100) / 12;
+      const n = years * 12;
+
+      let futureValue = 0;
+      let totalContributions = initial + (monthly * n);
+
+      if (n > 0) {
+        if (r > 0) {
+          const compoundInitial = initial * Math.pow(1 + r, n);
+          const compoundMonthly = monthly * ((Math.pow(1 + r, n) - 1) / r);
+          futureValue = compoundInitial + compoundMonthly;
+        } else {
+          futureValue = totalContributions;
+        }
+      }
+
+      const totalInterest = futureValue - totalContributions;
+
+      let reqMonthlyText = 'N/A';
+      if (target > 0 && n > 0) {
+        if (r > 0) {
+          const futureInitialOnly = initial * Math.pow(1 + r, n);
+          const remainingGoal = target - futureInitialOnly;
+
+          if (remainingGoal <= 0) {
+            reqMonthlyText = '$0.00 (Goal reached by initial deposit)';
+          } else {
+            const reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
+            reqMonthlyText = `$${reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}/mo`;
+          }
+        } else {
+          const remainingGoal = target - initial;
+          if (remainingGoal <= 0) {
+            reqMonthlyText = '$0.00';
+          } else {
+            const reqMonthly = remainingGoal / n;
+            reqMonthlyText = `$${reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}/mo`;
+          }
+        }
+      }
+
+      document.getElementById('principal-val').textContent = `$${totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('interest-val').textContent = `$${totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('future-val').textContent = `$${futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('req-monthly-val').textContent = reqMonthlyText;
+    });
+  </script>
+</body>
+</html>
