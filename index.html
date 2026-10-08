@@ -12,7 +12,6 @@
       padding: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     }
-
     body {
       min-height: 100vh;
       display: flex;
@@ -20,7 +19,6 @@
       align-items: center;
       background: linear-gradient(135deg, #fbcfe8, #f472b6, #c084fc);
     }
-
     .card {
       background-color: #3b0764;
       padding: 40px 30px;
@@ -30,25 +28,21 @@
       max-width: 380px;
       width: 90%;
     }
-
     h1 {
       color: #fce7f3;
       font-size: 2rem;
       margin-bottom: 8px;
     }
-
     p {
       color: #f472b6;
       font-size: 1.05rem;
       margin-bottom: 28px;
     }
-
     .button-group {
       display: flex;
       flex-direction: column;
       gap: 16px;
     }
-
     .btn {
       display: block;
       padding: 14px 20px;
@@ -62,38 +56,25 @@
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
-
     .btn:hover {
       background-color: #e879f9;
       transform: translateY(-2px);
       box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
     }
-
     .btn:active {
       transform: translateY(0);
-    }
-
-    .btn-secondary {
-      background-color: #a855f7;
-      color: #ffffff;
-    }
-
-    .btn-secondary:hover {
-      background-color: #c084fc;
     }
   </style>
 </head>
 <body>
-
   <div class="card">
     <h1>Calculator Hub</h1>
     <p>Choose a calculator to get started:</p>
-    
     <div class="button-group">
       <a href="calculator.html" class="btn">Standard Calculator</a>
-      <a href="percentage-of.html" class="btn btn-secondary">Percentage Calculator</a>
+      <a href="percentage-of.html" class="btn">Percentage Calculator</a>
+      <a href="percentage-of.html" class="btn">Stock Profit Calculator</a>
     </div>
   </div>
-
 </body>
 </html>
