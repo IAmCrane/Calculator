@@ -201,37 +201,37 @@
       <div class="form-item">
         <label for="target-income">Target Net Monthly Income ($/£)</label>
         <span class="hint">Take-home money you want in your pocket</span>
-        <input type="number" id="target-income" step="any" value="4000" placeholder="e.g. 4000">
+        <input type="number" id="target-income" step="any" placeholder="e.g. 4000">
       </div>
 
       <div class="form-item">
         <label for="billable-hours">Billable Hours per Week</label>
         <span class="hint">Time directly paid by clients</span>
-        <input type="number" id="billable-hours" step="any" value="25" placeholder="e.g. 25">
+        <input type="number" id="billable-hours" step="any" placeholder="e.g. 25">
       </div>
 
       <div class="form-item">
         <label for="non-billable-hours">Non-Billable Hours per Week</label>
         <span class="hint">Admin, marketing, invoicing & pitching</span>
-        <input type="number" id="non-billable-hours" step="any" value="10" placeholder="e.g. 10">
+        <input type="number" id="non-billable-hours" step="any" placeholder="e.g. 10">
       </div>
 
       <div class="form-item">
         <label for="overhead">Monthly Overhead & Expenses ($/£)</label>
         <span class="hint">Software, subscriptions, equipment, office</span>
-        <input type="number" id="overhead" step="any" value="300" placeholder="e.g. 300">
+        <input type="number" id="overhead" step="any" placeholder="e.g. 300">
       </div>
 
       <div class="form-item">
         <label for="tax-rate">Estimated Tax & Self-Employment Rate (%)</label>
         <span class="hint">Income tax + social contributions estimate</span>
-        <input type="number" id="tax-rate" step="any" value="25" placeholder="e.g. 25">
+        <input type="number" id="tax-rate" step="any" placeholder="e.g. 25">
       </div>
 
       <div class="form-item">
         <label for="pto-weeks">Paid Time Off Allowance (Weeks/Year)</label>
         <span class="hint">Vacation, sick leave, public holidays</span>
-        <input type="number" id="pto-weeks" step="any" value="4" placeholder="e.g. 4">
+        <input type="number" id="pto-weeks" step="any" placeholder="e.g. 4">
       </div>
     </div>
 
@@ -360,9 +360,6 @@
       }
 
       calcBtn.addEventListener('click', calculate);
-
-      // Trigger calculation on initial load
-      calculate();
     });
   </script>
 </body>
