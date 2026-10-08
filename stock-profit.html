@@ -107,7 +107,7 @@
       font-size: 1.8rem;
       font-weight: 700;
     }
-    .total-value {
+    .sub-value {
       color: #fce7f3;
       font-size: 0.95rem;
       margin-top: 6px;
@@ -147,37 +147,20 @@
       </div>
     </div>
 
-    <button class="btn" onclick="calculateProfit()">Calculate Profit</button>
+    <button type="button" id="calc-btn" class="btn">Calculate Profit</button>
 
-    <div class="result-box" id="result-box" style="display: none;">
+    <div class="result-box" id="result-box">
       <div class="result-title">Estimated Profit</div>
       <div class="result-value" id="profit-val">$0.00</div>
-      <div class="total-value" id="total-val">Total Value: $0.00</div>
+      <div class="sub-value" id="new-price-val">New Stock Price: $0.00</div>
+      <div class="sub-value" id="total-val">Total Value: $0.00</div>
     </div>
 
     <a href="index.html" class="back-link">&larr; Back to Home</a>
   </div>
 
   <script>
-    function calculateProfit() {
-      const price = parseFloat(document.getElementById('price').value);
-      const units = parseFloat(document.getElementById('units').value);
-      const increase = parseFloat(document.getElementById('increase').value);
+    document.getElementById('calc-btn').addEventListener('click', function(e) {
+      e.preventDefault();
 
-      if (isNaN(price) || isNaN(units) || isNaN(increase)) {
-        alert('Please fill in all fields with valid numbers.');
-        return;
-      }
-
-      const initialInvestment = price * units;
-      const profit = initialInvestment * (increase / 100);
-      const totalValue = initialInvestment + profit;
-
-      document.getElementById('profit-val').innerText = `$${profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      document.getElementById('total-val').innerText = `Total Value: $${totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      
-      document.getElementById('result-box').style.display = 'block';
-    }
-  </script>
-</body>
-</html>
+      const price = parseFloat(document.getElementById('price').value) ||
