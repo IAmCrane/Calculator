@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Freelance & Side-Hustle True Hourly Rate Calculator</title>
+  <link rel="icon" type="image/jpeg" href="calculator.jpg">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    body {
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fbcfe8, #f472b6, #c084fc);
+      padding: 30px 20px;
+    }
+    .card {
+      background-color: #3b0764;
+      padding: 40px 30px;
+      border-radius: 20px;
+      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+      text-align: center;
+      max-width: 480px;
+      width: 100%;
+    }
+    .top-nav {
+      margin-bottom: 20px;
+      text-align: left;
+    }
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #f472b6;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: #e879f9;
+      text-decoration: underline;
+    }
+    h1 {
+      color: #fce7f3;
+      font-size: 1.75rem;
+      margin-bottom: 8px;
+      line-height: 1.2;
+    }
+    p.subtitle {
+      color: #f472b6;
+      font-size: 0.95rem;
+      margin-bottom: 28px;
+    }
+    .input-group {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    .form-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    label {
+      color: #fce7f3;
+      font-size: 0.85rem;
+      font-weight: 600;
+    }
+    .hint {
+      color: #e9d5ff;
+      font-size: 0.75rem;
+      opacity: 0.8;
+      margin-bottom: 2px;
+    }
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid #a855f7;
+      border-radius: 10px;
+      background-color: #2e0854;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus {
+      border-color: #f472b6;
+    }
+    .error-msg {
+      color: #f87171;
+      font-size: 0.8rem;
+      margin-bottom: 12px;
+      display: none;
+      text-align: left;
+      font-weight: 600;
+    }
+    .btn {
+      width: 100%;
+      padding: 14px 20px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #3b0764;
+      background-color: #f472b6;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+    .btn:hover {
+      background-color: #e879f9;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+    .btn:active {
+      transform: translateY(0);
+    }
+    .result-box {
+      margin-top: 24px;
+      padding: 20px 18px;
+      background-color: #2e0854;
+      border-radius: 14px;
+      border: 1px solid #a855f7;
+      text-align: left;
+    }
+    .primary-highlight {
+      background: rgba(244, 114, 182, 0.12);
+      border: 1.5px solid #f472b6;
+      padding: 16px;
+      border-radius: 12px;
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .primary-highlight .label {
+      color: #f472b6;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .primary-highlight .val {
+      color: #4ade80;
+      font-size: 2.2rem;
+      font-weight: 800;
+    }
+    .result-title {
+      color: #f472b6;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 10px;
+      font-weight: 700;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(168, 85, 247, 0.4);
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fce7f3;
+      font-size: 0.9rem;
+      margin-bottom: 8px;
+    }
+    .result-row:last-child {
+      margin-bottom: 0;
+    }
+    .result-row span.val {
+      color: #f472b6;
+      font-weight: 700;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: #e9d5ff;
+      opacity: 0.8;
+      line-height: 1.4;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="top-nav">
+      <a href="index.html" class="back-link">&larr; Back to Calculator Hub</a>
+    </div>
+
+    <h1>Freelance Rate Calculator</h1>
+    <p class="subtitle">Find your true hourly rate & minimum client quote</p>
+
+    <div class="input-group">
+      <div class="form-item">
+        <label for="target-income">Target Net Monthly Income ($/£)</label>
+        <span class="hint">Take-home money you want in your pocket</span>
+        <input type="number" id="target-income" step="any" value="4000" placeholder="e.g. 4000">
+      </div>
+
+      <div class="form-item">
+        <label for="billable-hours">Billable Hours per Week</label>
+        <span class="hint">Time directly paid by clients</span>
+        <input type="number" id="billable-hours" step="any" value="25" placeholder="e.g. 25">
+      </div>
+
+      <div class="form-item">
+        <label for="non-billable-hours">Non-Billable Hours per Week</label>
+        <span class="hint">Admin, marketing, invoicing & pitching</span>
+        <input type="number" id="non-billable-hours" step="any" value="10" placeholder="e.g. 10">
+      </div>
+
+      <div class="form-item">
+        <label for="overhead">Monthly Overhead & Expenses ($/£)</label>
+        <span class="hint">Software, subscriptions, equipment, office</span>
+        <input type="number" id="overhead" step="any" value="300" placeholder="e.g. 300">
+      </div>
+
+      <div class="form-item">
+        <label for="tax-rate">Estimated Tax & Self-Employment Rate (%)</label>
+        <span class="hint">Income tax + social contributions estimate</span>
+        <input type="number" id="tax-rate" step="any" value="25" placeholder="e.g. 25">
+      </div>
+
+      <div class="form-item">
+        <label for="pto-weeks">Paid Time Off Allowance (Weeks/Year)</label>
+        <span class="hint">Vacation, sick leave, public holidays</span>
+        <input type="number" id="pto-weeks" step="any" value="4" placeholder="e.g. 4">
+      </div>
+    </div>
+
+    <div id="error-msg" class="error-msg"></div>
+
+    <button type="button" id="calc-btn" class="btn">Calculate Rate</button>
+
+    <div class="result-box" id="result-box">
+      <div class="primary-highlight">
+        <div class="label">Recommended Client Quote Rate</div>
+        <div class="val" id="quote-rate-val">$0.00 / hr</div>
+      </div>
+
+      <div class="result-title">Breakdown & Insights</div>
+      <div class="result-row">
+        <span>True Net Hourly Wage:</span>
+        <span class="val" id="true-wage-val">$0.00 / hr</span>
+      </div>
+      <div class="result-row">
+        <span>Minimum Break-Even Rate:</span>
+        <span class="val" id="breakeven-rate-val">$0.00 / hr</span>
+      </div>
+      <div class="result-row">
+        <span>Unpaid Admin Burden Ratio:</span>
+        <span class="val" id="admin-ratio-val">0.0%</span>
+      </div>
+      <div class="result-row">
+        <span>Required Gross Annual Revenue:</span>
+        <span class="val" id="gross-revenue-val">$0.00</span>
+      </div>
+    </div>
+
+    <p class="disclaimer">
+      Disclaimer: This calculator provides estimations for planning purposes only and does not constitute formal tax or accounting advice. Adjust rates based on market demand and skill level.
+    </p>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var calcBtn = document.getElementById('calc-btn');
+      var errorMsg = document.getElementById('error-msg');
+
+      function calculate() {
+        errorMsg.style.display = 'none';
+        errorMsg.textContent = '';
+
+        var targetNetMonthly = parseFloat(document.getElementById('target-income').value) || 0;
+        var billableWeekly = parseFloat(document.getElementById('billable-hours').value) || 0;
+        var nonBillableWeekly = parseFloat(document.getElementById('non-billable-hours').value) || 0;
+        var monthlyOverhead = parseFloat(document.getElementById('overhead').value) || 0;
+        var taxRatePercent = parseFloat(document.getElementById('tax-rate').value) || 0;
+        var ptoWeeks = parseFloat(document.getElementById('pto-weeks').value) || 0;
+
+        // Input Validations
+        if (targetNetMonthly < 0 || billableWeekly < 0 || nonBillableWeekly < 0 || monthlyOverhead < 0 || taxRatePercent < 0 || ptoWeeks < 0) {
+          showError('Please ensure all input values are positive numbers.');
+          return;
+        }
+
+        if (ptoWeeks >= 52) {
+          showError('Paid time off must be less than 52 weeks per year.');
+          return;
+        }
+
+        if (taxRatePercent >= 100) {
+          showError('Tax rate must be less than 100%.');
+          return;
+        }
+
+        var totalWeeklyHours = billableWeekly + nonBillableWeekly;
+        if (totalWeeklyHours === 0) {
+          showError('Total working hours per week must be greater than zero.');
+          return;
+        }
+
+        if (billableWeekly === 0) {
+          showError('Billable hours per week must be greater than zero to calculate quote rates.');
+          return;
+        }
+
+        /* -----------------------------------------------------------------
+           CALCULATION FORMULAS
+           1. Working Weeks = 52 - PTO Weeks
+           2. Annual Billable Hours = Billable Hours/Wk * Working Weeks
+           3. Total Annual Working Hours = Total Weekly Hours * Working Weeks
+           4. Annual Overhead = Monthly Overhead * 12
+           5. Target Gross Annual Revenue = ((Net Monthly * 12) / (1 - Tax Rate)) + Annual Overhead
+           6. True Net Hourly Wage = Total Net Annual Income / Total Hours Worked Across Year
+           7. Minimum Break-Even Hourly Rate = (Annual Overhead + Net Annual Target) / Annual Billable Hours
+           8. Recommended Quote Rate = Target Gross Annual Revenue / Annual Billable Hours
+           9. Unpaid Admin Ratio = Non-Billable Hours / Total Weekly Hours
+        ----------------------------------------------------------------- */
+
+        var annualWorkingWeeks = 52 - ptoWeeks;
+        var annualBillableHours = billableWeekly * annualWorkingWeeks;
+        var totalAnnualHours = totalWeeklyHours * annualWorkingWeeks;
+        var annualExpenseOverhead = monthlyOverhead * 12;
+
+        var netAnnualTarget = targetNetMonthly * 12;
+        var taxMultiplier = 1 - (taxRatePercent / 100);
+        var targetGrossAnnualRevenue = (netAnnualTarget / taxMultiplier) + annualExpenseOverhead;
+
+        var trueNetHourlyWage = netAnnualTarget / totalAnnualHours;
+        var minimumBreakEvenRate = (annualExpenseOverhead + netAnnualTarget) / annualBillableHours;
+        var recommendedQuoteRate = targetGrossAnnualRevenue / annualBillableHours;
+        var unpaidAdminRatio = (nonBillableWeekly / totalWeeklyHours) * 100;
+
+        // Render Results
+        document.getElementById('quote-rate-val').textContent = formatCurrency(recommendedQuoteRate) + ' / hr';
+        document.getElementById('true-wage-val').textContent = formatCurrency(trueNetHourlyWage) + ' / hr';
+        document.getElementById('breakeven-rate-val').textContent = formatCurrency(minimumBreakEvenRate) + ' / hr';
+        document.getElementById('admin-ratio-val').textContent = unpaidAdminRatio.toFixed(1) + '%';
+        document.getElementById('gross-revenue-val').textContent = formatCurrency(targetGrossAnnualRevenue);
+      }
+
+      function showError(message) {
+        errorMsg.textContent = message;
+        errorMsg.style.display = 'block';
+      }
+
+      function formatCurrency(amount) {
+        return '$' + amount.toLocaleString(undefined, {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+      }
+
+      calcBtn.addEventListener('click', calculate);
+
+      // Trigger calculation on initial load
+      calculate();
+    });
+  </script>
+</body>
+</html>
