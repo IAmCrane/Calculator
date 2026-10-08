@@ -112,9 +112,16 @@
       font-size: 0.95rem;
       margin-top: 6px;
     }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: #e9d5ff;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
     .back-link {
       display: inline-block;
-      margin-top: 20px;
+      margin-top: 16px;
       color: #f472b6;
       text-decoration: none;
       font-size: 0.95rem;
@@ -156,6 +163,10 @@
       <div class="sub-value" id="total-val">Total Value: $0.00</div>
     </div>
 
+    <p class="disclaimer">
+      Disclaimer: This calculator is provided for informational purposes only and should not be considered financial or tax advice. Please consult a qualified accountant or financial advisor for professional guidance.
+    </p>
+
     <a href="index.html" class="back-link">&larr; Back to Home</a>
   </div>
 
@@ -172,9 +183,9 @@
       const newPrice = price * (1 + increase / 100);
       const totalValue = initialInvestment + profit;
 
-      document.getElementById('profit-val').textContent = `$${profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      document.getElementById('new-price-val').textContent = `New Stock Price: $${newPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      document.getElementById('total-val').textContent = `Total Value: $${totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('profit-val').textContent = '$' + profit.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('new-price-val').textContent = 'New Stock Price: $' + newPrice.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('total-val').textContent = 'Total Value: $' + totalValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
     });
   </script>
 </body>
