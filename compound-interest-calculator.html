@@ -235,7 +235,7 @@
             reqMonthlyText = '$0.00 (Goal reached by initial deposit)';
           } else {
             const reqMonthly = remainingGoal * r / (Math.pow(1 + r, n) - 1);
-            reqMonthlyText = `$${reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}/mo`;
+            reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
           }
         } else {
           const remainingGoal = target - initial;
@@ -243,14 +243,14 @@
             reqMonthlyText = '$0.00';
           } else {
             const reqMonthly = remainingGoal / n;
-            reqMonthlyText = `$${reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}/mo`;
+            reqMonthlyText = '$' + reqMonthly.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2}) + '/mo';
           }
         }
       }
 
-      document.getElementById('principal-val').textContent = `$${totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      document.getElementById('interest-val').textContent = `$${totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-      document.getElementById('future-val').textContent = `$${futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('principal-val').textContent = '$' + totalContributions.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('interest-val').textContent = '$' + totalInterest.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
+      document.getElementById('future-val').textContent = '$' + futureValue.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
       document.getElementById('req-monthly-val').textContent = reqMonthlyText;
     });
   </script>
