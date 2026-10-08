@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculator Hub</title>
+  <title>UK Tax Calculator</title>
   <link rel="icon" type="image/jpeg" href="calculator.jpg">
   <style>
     * {
@@ -18,6 +18,7 @@
       justify-content: center;
       align-items: center;
       background: linear-gradient(135deg, #fbcfe8, #f472b6, #c084fc);
+      padding: 20px;
     }
     .card {
       background-color: #3b0764;
@@ -25,26 +26,49 @@
       border-radius: 20px;
       box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
       text-align: center;
-      max-width: 380px;
-      width: 90%;
+      max-width: 420px;
+      width: 100%;
     }
     h1 {
       color: #fce7f3;
-      font-size: 2rem;
+      font-size: 1.8rem;
       margin-bottom: 8px;
     }
     p {
       color: #f472b6;
-      font-size: 1.05rem;
-      margin-bottom: 28px;
+      font-size: 1rem;
+      margin-bottom: 24px;
     }
-    .button-group {
+    .input-group {
       display: flex;
       flex-direction: column;
       gap: 16px;
+      margin-bottom: 24px;
+      text-align: left;
+    }
+    label {
+      color: #fce7f3;
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 4px;
+      display: block;
+    }
+    input {
+      width: 100%;
+      padding: 12px 16px;
+      font-size: 1rem;
+      border: 2px solid #a855f7;
+      border-radius: 10px;
+      background-color: #2e0854;
+      color: #ffffff;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+    input:focus {
+      border-color: #f472b6;
     }
     .btn {
-      display: block;
+      width: 100%;
       padding: 14px 20px;
       font-size: 1.1rem;
       font-weight: 600;
@@ -52,7 +76,7 @@
       background-color: #f472b6;
       border: none;
       border-radius: 12px;
-      text-decoration: none;
+      cursor: pointer;
       transition: all 0.2s ease;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     }
@@ -64,19 +88,200 @@
     .btn:active {
       transform: translateY(0);
     }
+    .result-box {
+      margin-top: 24px;
+      padding: 16px;
+      background-color: #2e0854;
+      border-radius: 12px;
+      border: 1px solid #a855f7;
+      text-align: left;
+    }
+    .result-title {
+      color: #f472b6;
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+    .result-row {
+      display: flex;
+      justify-content: space-between;
+      color: #fce7f3;
+      font-size: 0.95rem;
+      margin-bottom: 6px;
+    }
+    .result-row:last-child {
+      margin-bottom: 0;
+    }
+    .result-row.total {
+      margin-top: 10px;
+      padding-top: 8px;
+      border-top: 1px dashed #a855f7;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .result-row span.val {
+      color: #4ade80;
+      font-weight: 700;
+    }
+    .result-row.total span.val {
+      color: #f472b6;
+    }
+    .disclaimer {
+      margin-top: 20px;
+      font-size: 0.75rem;
+      color: #e9d5ff;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 16px;
+      color: #f472b6;
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 600;
+      transition: color 0.2s ease;
+    }
+    .back-link:hover {
+      color: #e879f9;
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <div class="card">
-    <h1>Calculator Hub</h1>
-    <p>Choose a calculator to get started:</p>
-    <div class="button-group">
-      <a href="calculator.html" class="btn">Standard Calculator</a>
-      <a href="percentage-of.html" class="btn">Percentage Calculator</a>
-      <a href="stock-profit.html" class="btn">Stock Profit Calculator</a>
-      <a href="weigh-volume-calculator.html" class="btn">Liquid Volume and Weight Calculator</a>
-      <a href="uk-tax-calculator.html" class="btn">UK Income Tax Calculator</a>
+    <h1>UK Tax Calculator</h1>
+    <p>Estimate Income Tax, Capital Gains, and Dividend Tax</p>
+
+    <div class="input-group">
+      <div>
+        <label for="income">Annual Employment / Other Income (£)</label>
+        <input type="number" id="income" step="any" placeholder="e.g. 35000">
+      </div>
+      <div>
+        <label for="capital-gains">Stock Capital Gains Profit (£)</label>
+        <input type="number" id="capital-gains" step="any" placeholder="e.g. 5000">
+      </div>
+      <div>
+        <label for="dividends">Dividend Income (£)</label>
+        <input type="number" id="dividends" step="any" placeholder="e.g. 1500">
+      </div>
     </div>
+
+    <button type="button" id="calc-btn" class="btn">Calculate Tax</button>
+
+    <div class="result-box" id="result-box">
+      <div class="result-title">Tax Breakdown</div>
+      <div class="result-row">Income Tax: <span class="val" id="income-tax">£0.00</span></div>
+      <div class="result-row">Capital Gains Tax: <span class="val" id="cgt-tax">£0.00</span></div>
+      <div class="result-row">Dividend Tax: <span class="val" id="dividend-tax">£0.00</span></div>
+      <div class="result-row total">Total Estimated Tax: <span class="val" id="total-tax">£0.00</span></div>
+      <div class="result-row total">Take-Home Amount: <span class="val" id="take-home">£0.00</span></div>
+    </div>
+
+    <p class="disclaimer">
+      Disclaimer: This calculator provides estimations for informational purposes only and should not be taken as financial or tax advice. Please consult a qualified tax professional or accountant for personal guidance.
+    </p>
+
+    <a href="index.html" class="back-link">&larr; Back to Home</a>
   </div>
+
+  <script>
+    document.getElementById('calc-btn').addEventListener('click', function(e) {
+      e.preventDefault();
+
+      const grossIncome = parseFloat(document.getElementById('income').value) || 0;
+      const capitalGains = parseFloat(document.getElementById('capital-gains').value) || 0;
+      const dividends = parseFloat(document.getElementById('dividends').value) || 0;
+
+      // --- 1. Income Tax Calculation ---
+      let personalAllowance = 12570;
+      // Personal Allowance Tapering above £100,000
+      if (grossIncome > 100000) {
+        personalAllowance = Math.max(0, 12570 - (grossIncome - 100000) / 2);
+      }
+
+      let taxableIncome = Math.max(0, grossIncome - personalAllowance);
+      let incomeTax = 0;
+
+      if (taxableIncome > 0) {
+        // Basic rate: 20% on up to £37,700 above Personal Allowance
+        const basicBand = Math.min(taxableIncome, 37700);
+        incomeTax += basicBand * 0.20;
+
+        // Higher rate: 40% on income between £37,701 and £112,500 above PA (£50,270 - £125,140)
+        if (taxableIncome > 37700) {
+          const higherBand = Math.min(taxableIncome - 37700, 87440);
+          incomeTax += higherBand * 0.40;
+        }
+
+        // Additional rate: 45% on income above £125,140
+        if (taxableIncome > 125140) {
+          const additionalBand = taxableIncome - 125140;
+          incomeTax += additionalBand * 0.45;
+        }
+      }
+
+      // --- 2. Capital Gains Tax (CGT) Calculation ---
+      // Allowance: £3,000 annual exemption
+      const cgtAllowance = 3000;
+      let taxableCGT = Math.max(0, capitalGains - cgtAllowance);
+      let cgtTax = 0;
+
+      if (taxableCGT > 0) {
+        // Basic rate threshold check (£50,270 total income)
+        const basicRemaining = Math.max(0, 50270 - grossIncome);
+        const cgtAtBasic = Math.min(taxableCGT, basicRemaining);
+        const cgtAtHigher = Math.max(0, taxableCGT - cgtAtBasic);
+
+        // Shares/stocks CGT rates: 10% basic / 20% higher
+        cgtTax = (cgtAtBasic * 0.10) + (cgtAtHigher * 0.20);
+      }
+
+      // --- 3. Dividend Tax Calculation ---
+      // Allowance: £500 tax-free dividend allowance
+      const dividendAllowance = 500;
+      let taxableDividends = Math.max(0, dividends - dividendAllowance);
+      let dividendTax = 0;
+
+      if (taxableDividends > 0) {
+        // Check remaining basic rate band after employment income
+        const totalTaxableIncomeBeforeDivs = Math.max(0, grossIncome - personalAllowance);
+        const divBasicRemaining = Math.max(0, 37700 - totalTaxableIncomeBeforeDivs);
+
+        const divBasic = Math.min(taxableDividends, divBasicRemaining);
+        let divHigherRemaining = Math.max(0, taxableDividends - divBasic);
+
+        // Higher band remaining
+        const totalIncPlusDivs = grossIncome + dividends;
+        let divHigher = 0;
+        let divAdditional = 0;
+
+        if (totalIncPlusDivs > 125140) {
+          divAdditional = Math.max(0, totalIncPlusDivs - 125140);
+          divHigher = Math.max(0, divHigherRemaining - divAdditional);
+        } else {
+          divHigher = divHigherRemaining;
+        }
+
+        // Dividend Tax Rates: 8.75% Basic, 33.75% Higher, 39.35% Additional
+        dividendTax = (divBasic * 0.0875) + (divHigher * 0.3375) + (divAdditional * 0.3935);
+      }
+
+      // Totals
+      const totalTax = incomeTax + cgtTax + dividendTax;
+      const grossTotal = grossIncome + capitalGains + dividends;
+      const takeHome = grossTotal - totalTax;
+
+      // Update UI
+      document.getElementById('income-tax').textContent = `£${incomeTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('cgt-tax').textContent = `£${cgtTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('dividend-tax').textContent = `£${dividendTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('total-tax').textContent = `£${totalTax.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+      document.getElementById('take-home').textContent = `£${takeHome.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
+    });
+  </script>
 </body>
 </html>
